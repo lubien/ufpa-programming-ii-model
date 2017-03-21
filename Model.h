@@ -19,7 +19,6 @@ class Model {
 		Model(const Model &);
 		~Model();
 
-		virtual Model* findOrFail(int) = 0;
 		virtual bool save() = 0;
 		virtual bool remove() = 0;
 		virtual bool update() = 0;
