@@ -11,13 +11,14 @@ class Model {
 
 	public:
 
+		const Model &operator=(const Model &);
+		bool operator==(const Model &) const;
+		bool operator!=(const Model &right) const;
+
 		Model();
 		Model(int);
 		Model(const Model &);
 		~Model();
-		const Model &operator=(const Model &);
-		bool operator==(const Model &) const;
-		bool operator!=(const Model &right) const;
 
 		virtual Model* findOrFail(int) = 0;
 		virtual bool save() = 0;
