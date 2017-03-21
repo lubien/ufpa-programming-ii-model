@@ -10,7 +10,6 @@ class Model {
 	friend ostream &operator<<(ostream &, const Model &);
 
 	public:
-
 		const Model &operator=(const Model &);
 		bool operator==(const Model &) const;
 		bool operator!=(const Model &right) const;
