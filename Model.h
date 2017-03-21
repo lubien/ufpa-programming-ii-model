@@ -23,6 +23,7 @@ class Model {
 		virtual bool remove() = 0;
 		virtual bool update() = 0;
 		virtual void printJson() = 0;
+		int getId();
 
 		const string resource();
 

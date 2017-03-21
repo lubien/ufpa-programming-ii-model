@@ -38,6 +38,10 @@ bool Model::operator!=(const Model &right) const {
 
 // Public
 
+int Model::getId() {
+	return this->id;
+}
+
 const string Model::resource() {
 	return Model::RESOURCE;
 }
