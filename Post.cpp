@@ -17,7 +17,7 @@ Post::Post(unsigned int id) {
 	}
 }
 
-Post::Post(const string &postname, int role)
+Post::Post(const string &title, int role)
 :title(title) {
 	this->id = -1;
 }
