@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <ostream>
+#include <ctime>
 using namespace std;
 
 class Date {
@@ -17,6 +18,8 @@ class Date {
 		Date(int, int, int);
 		Date(const Date &);
 		~Date();
+
+		static Date* now();
 
 	private:
 		int month;

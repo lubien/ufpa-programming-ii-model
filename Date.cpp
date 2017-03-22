@@ -47,6 +47,15 @@ bool Date::operator!=(const Date &right) const {
 	return !(*this == right);
 }
 
+// Public
+
+Date* Date::now() {
+	time_t t = time(0);
+	struct tm * now = localtime(&t);
+	Date *date = new Date(now->tm_mon + 1, now->tm_mday, now->tm_year + 1900);
+	return date;
+}
+
 // Private
 
 void Date::check() const {
