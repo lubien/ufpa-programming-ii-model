@@ -8,6 +8,9 @@ Todo::Todo()
 :title("") {
 	this->id = -1;
 	this->start = Date::now();
+	this->revisionCount = 1;
+	this->revisions = new string[1];
+	this->revisions[0] = "";
 }
 
 Todo::Todo(unsigned int id) {
@@ -15,9 +18,14 @@ Todo::Todo(unsigned int id) {
 		this->title = todos.at(id)->title;
 		this->start = todos.at(id)->start;
 		this->end = todos.at(id)->end;
+		this->revisionCount = todos.at(id)->revisionCount;
+		this->revisions = todos.at(id)->revisions;
 	} else {
 		this->id = -1;
 		this->start = Date::now();
+		this->revisionCount = 1;
+		this->revisions = new string[1];
+		this->revisions[0] = "";
 	}
 }
 
@@ -25,11 +33,18 @@ Todo::Todo(const string &title)
 :title(title) {
 	this->id = -1;
 	this->start = Date::now();
+	this->revisionCount = 1;
+	this->revisions = new string[1];
+	this->revisions[0] = title;
 }
 
 Todo::Todo(const Todo &todo)
 :title(todo.title), start(todo.start), end(todo.end) {
 	this->id = todo.id;
+	this->revisionCount = todo.revisionCount;
+
+	for (int i = 0; i < this->revisionCount; i++)
+		this->revisions[i] = todo.revisions[i];
 }
 
 Todo::~Todo() {
@@ -116,6 +131,22 @@ string Todo::getTitle() {
 
 void Todo::setTitle(const string &title) {
 	this->title = title;
+
+	string *aux = new string[this->revisionCount];
+
+	for (int i = 0; i < this->revisionCount; i++)
+		aux[i] = this->revisions[i];
+
+	delete [] this->revisions;
+
+	this->revisionCount++;
+
+	this->revisions = new string[this->revisionCount];
+
+	for (int i = 0; i < this->revisionCount - 1; i++)
+		this->revisions[i] = aux[i];
+
+	this->revisions[this->revisionCount] = title;
 }
 
 void Todo::finish() {

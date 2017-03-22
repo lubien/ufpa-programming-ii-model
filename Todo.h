@@ -39,6 +39,8 @@ class Todo : public Model {
 		string title;
 		Date* start;
 		Date* end;
+		int revisionCount;
+		string *revisions;
 		const static string RESOURCE;
 };
 #endif
