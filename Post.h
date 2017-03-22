@@ -39,6 +39,8 @@ class Post : public Model {
 		string title;
 		Date* published;
 		Date* modified;
+		int revisionCount;
+		string *revisions;
 		const static string RESOURCE;
 };
 #endif

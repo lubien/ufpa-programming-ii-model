@@ -7,27 +7,43 @@ vector<Post*> posts;
 Post::Post()
 :title("") {
 	this->id = -1;
+	this->revisionCount = 1;
+	this->revisions = new string[1];
+	this->revisions[0] = "";
 }
 
 Post::Post(unsigned int id) {
 	if (Post::has(id)) {
 		this->title = posts.at(id)->title;
+		this->revisionCount = posts.at(id)->revisionCount;
+		this->revisions = posts.at(id)->revisions;
 	} else {
 		this->id = -1;
+		this->revisionCount = 1;
+		this->revisions = new string[1];
+		this->revisions[0] = "";
 	}
 }
 
 Post::Post(const string &title, int role)
 :title(title) {
 	this->id = -1;
+	this->revisionCount = 1;
+	this->revisions = new string[1];
+	this->revisions[0] = title;
 }
 
 Post::Post(const Post &post)
 :title(post.title) {
 	this->id = post.id;
+	this->revisionCount = post.revisionCount;
+
+	for (int i = 0; i < this->revisionCount; i++)
+		this->revisions[i] = post.revisions[i];
 }
 
 Post::~Post() {
+	delete [] this->revisions;
 	cout << "Destroying " << *this << endl;
 }
 
@@ -114,6 +130,22 @@ string Post::getTitle() {
 
 void Post::setTitle(const string &title) {
 	this->title = title;
+
+	string *aux = new string[this->revisionCount];
+
+	for (int i = 0; i < this->revisionCount; i++)
+		aux[i] = this->revisions[i];
+
+	delete [] this->revisions;
+
+	this->revisionCount++;
+
+	this->revisions = new string[this->revisionCount];
+
+	for (int i = 0; i < this->revisionCount - 1; i++)
+		this->revisions[i] = aux[i];
+
+	this->revisions[this->revisionCount] = title;
 }
 
 bool Post::isPublished() {
