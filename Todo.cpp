@@ -48,6 +48,7 @@ Todo::Todo(const Todo &todo)
 }
 
 Todo::~Todo() {
+	delete [] this->revisions;
 	cout << "Destroying " << *this << endl;
 }
 
