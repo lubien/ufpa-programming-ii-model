@@ -7,28 +7,41 @@ vector<User*> users;
 User::User()
 :username(""), role(0) {
 	this->id = -1;
+	this->todoCount = 0;
+	this->todos = new Todo[0];
 }
 
 User::User(unsigned int id) {
 	if (User::has(id)) {
 		this->username = users.at(id)->username;
 		this->role = users.at(id)->role;
+		this->todoCount = users.at(id)->todoCount;
+		this->todos = users.at(id)->todos;
 	} else {
 		this->id = -1;
+		this->todoCount = 0;
+		this->todos = new Todo[0];
 	}
 }
 
 User::User(const string &username, int role)
 :username(username), role(role) {
 	this->id = -1;
+	this->todoCount = 0;
+	this->todos = new Todo[0];
 }
 
 User::User(const User &user)
 :username(user.username), role(user.role) {
 	this->id = user.id;
+	this->todoCount = user.todoCount;
+
+	for (int i = 0; i < this->todoCount; i++)
+		this->todos[i] = user.todos[i];
 }
 
 User::~User() {
+	delete [] this->todos;
 	cout << "Destroying " << *this << endl;
 }
 
@@ -118,6 +131,44 @@ int User::getRole() {
 
 void User::setRole(int role) {
 	this->role = role;
+}
+
+void User::addTodo(Todo &todo) {
+	Todo *aux = new Todo[this->todoCount];
+
+	for (int i = 0; i < this->todoCount; i++)
+		aux[i] = this->todos[i];
+
+	delete [] this->todos;
+
+	this->todoCount++;
+
+	this->todos = new Todo[this->todoCount];
+
+	for (int i = 0; i < this->todoCount - 1; i++)
+		this->todos[i] = aux[i];
+
+	this->todos[this->todoCount - 1] = todo;
+}
+
+void User::removeTodo(int id) {
+	Todo *aux = new Todo[this->todoCount];
+
+	for (int i = 0; i < this->todoCount; i++)
+		aux[i] = this->todos[i];
+
+	delete [] this->todos;
+
+	this->todoCount--;
+
+	this->todos = new Todo[this->todoCount];
+
+	for (int i = 0, j = 0; i < this->todoCount; j++) {
+		if (aux[j].getId() != id) {
+			this->todos[i] = aux[j];
+			i++;
+		}
+	}
 }
 
 const string User::resource() {

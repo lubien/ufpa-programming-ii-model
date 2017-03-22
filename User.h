@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include "Model.h"
+#include "Todo.h"
 using namespace std;
 
 class User : public Model {
@@ -31,12 +32,16 @@ class User : public Model {
 		void setUsername(const string &);
 		int getRole();
 		void setRole(int);
+		void addTodo(Todo &);
+		void removeTodo(int);
 
 		const string resource();
 
 	private:
 		string username;
 		int role;
+		Todo *todos;
+		int todoCount;
 		const static string RESOURCE;
 };
 #endif
