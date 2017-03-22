@@ -37,7 +37,7 @@ class User : public Model {
 
 		const string resource();
 
-	private:
+	protected:
 		string username;
 		int role;
 		Todo *todos;
