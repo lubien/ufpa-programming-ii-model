@@ -1,0 +1,42 @@
+#ifndef _USER_H_
+#define _USER_H_
+
+#include <iostream>
+#include <ostream>
+#include <string>
+#include <vector>
+#include "Model.h"
+using namespace std;
+
+class User : public Model {
+	friend ostream &operator<<(ostream &, const User &);
+
+	public:
+		const User &operator=(const User &);
+		bool operator==(const User &) const;
+		bool operator!=(const User &right) const;
+
+		User();
+		User(unsigned int);
+		User(const string &, int);
+		User(const User &);
+		~User();
+
+		static bool has(int);
+		bool save();
+		bool remove();
+		bool update();
+
+		string getUsername();
+		void setUsername(const string &);
+		int getRole();
+		void setRole(int);
+
+		const string resource();
+
+	private:
+		string username;
+		int role;
+		const static string RESOURCE;
+};
+#endif
