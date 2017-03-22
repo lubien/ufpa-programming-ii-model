@@ -12,7 +12,7 @@ class Model {
 	public:
 		const Model &operator=(const Model &);
 		bool operator==(const Model &) const;
-		bool operator!=(const Model &right) const;
+		bool operator!=(const Model &) const;
 
 		Model();
 		Model(int);

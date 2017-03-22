@@ -14,7 +14,7 @@ class User : public Model {
 	public:
 		const User &operator=(const User &);
 		bool operator==(const User &) const;
-		bool operator!=(const User &right) const;
+		bool operator!=(const User &) const;
 
 		User();
 		User(unsigned int);
